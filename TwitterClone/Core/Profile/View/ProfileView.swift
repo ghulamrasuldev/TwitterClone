@@ -100,7 +100,7 @@ extension ProfileView{
                     .offset(x: 16, y:24)
             }
         }
-        .frame(height: 108)
+        .frame(height: 96)
     }
     
     //Profile action Buttons

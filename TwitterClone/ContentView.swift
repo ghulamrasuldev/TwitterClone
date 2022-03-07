@@ -9,13 +9,11 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        ScrollView{
-            LazyVStack{
-                ForEach(1 ... 50, id: \.self){_ in
-                     Text("Ghulam Rasool")
-                }
-            }
+        ZStack(alignment: .topLeading){
+            MainTabView()s
         }
+        .navigationTitle("Home")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
