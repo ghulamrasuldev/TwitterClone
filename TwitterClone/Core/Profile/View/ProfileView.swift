@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct ProfileView: View {
+    @State private var selectedFilter: TweetFilterViewModel = .tweets
+    @Environment(\.presentationMode) var mode
+    @Namespace var animation
     var body: some View {
         
         //Complete Profile
@@ -20,6 +23,47 @@ struct ProfileView: View {
             
             //Profile Name + Bio + Location + Website
             profileInfo
+            
+            //Tweets
+            HStack{
+                ForEach(TweetFilterViewModel.allCases, id: \.rawValue){ filter in
+                    VStack{
+                        Text(filter.title)
+                            .font(.subheadline)
+                            .fontWeight(selectedFilter == filter ? .semibold: .regular)
+                            .foregroundColor(selectedFilter == filter ? .black: .gray)
+                        
+                        if selectedFilter == filter{
+                            Capsule()
+                                .fill(Color(.systemBlue))
+                                .frame(height: 4)
+                                .matchedGeometryEffect(id: "filter", in: animation)
+                        }
+                        else{
+                            Capsule()
+                                .fill(Color(.clear))
+                                .frame(height: 4)
+                        }
+                    }
+                    .onTapGesture {
+                        withAnimation(.easeInOut){
+                            self.selectedFilter = filter
+                        }
+                    }
+                }
+            }
+            .padding(.vertical)
+            .overlay(Divider().offset(x: 0, y: 16))
+            
+            //List of Tweets
+            
+            ScrollView{
+                LazyVStack{
+                    ForEach(1 ... 50, id: \.self){_ in
+                        TweetsRowView()
+                    }
+                }
+            }
 
 
             Spacer()
@@ -43,6 +87,7 @@ extension ProfileView{
             VStack{
                 Button{
                     //Action goes here
+                    mode.wrappedValue.dismiss()
                 } label: {
                     Image(systemName: "arrow.left")
                         .resizable()
@@ -136,27 +181,7 @@ extension ProfileView{
             }
             
             //Following and Followers
-            
-            HStack (spacing: 12){
-                
-                //Following
-                HStack{
-                    Text("2")
-                        .font(.subheadline).bold()
-                    Text("Following")
-                        .font(.subheadline)
-                        .foregroundColor(.gray)
-                }
-                
-                //Followers
-                HStack{
-                    Text("4")
-                        .font(.subheadline).bold()
-                    Text("Followers")
-                        .font(.subheadline)
-                        .foregroundColor(.gray)
-                }
-            }
+            UserStatsView()
         }
         .padding(.horizontal)
     }
