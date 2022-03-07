@@ -5,6 +5,7 @@
 //  Created by GAMA  on 07/03/2022.
 //
 
+
 import SwiftUI
 
 struct SideMenuView: View {
@@ -13,7 +14,7 @@ struct SideMenuView: View {
             //Profile Header!
             VStack (alignment: .leading){
                 Circle()
-                    .frame(width: 48, height: 48)
+                    .frame(width: 54, height: 54)
                     .foregroundColor(Color(.systemBlue))
                 //Name + Verified
                 HStack{
