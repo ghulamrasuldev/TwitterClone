@@ -41,8 +41,16 @@ struct SideMenuView: View {
             
             //Options Menu
             ForEach(SideMenuViewModel.allCases, id: \.rawValue){options in
+                
+     
                 NavigationLink{
-                    ProfileView()
+                    if (options == SideMenuViewModel.profile){
+                        ProfileView()
+                    }else if (options == SideMenuViewModel.logout){
+                        LoginUI()
+                    }else{
+                        ProfileView()
+                    }
                 } label: {
                     SideMenuOptionRowView(option: options)
                 }
