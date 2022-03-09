@@ -107,6 +107,7 @@
 			isa = PBXGroup;
 			children = (
 				36211EAA27D20C14007D408E /* Components */,
+				36BFB4D527D8E729006B606B /* Authentication */,
 				36BFB4CD27D8E078006B606B /* UploadTweet */,
 				36211ECF27D5F5F7007D408E /* Side Menu */,
 				36211EBB27D22520007D408E /* Messages */,
@@ -321,6 +322,29 @@
 				36BFB4D327D8E309006B606B /* TextAreaView.swift */,
 			);
 			path = TextArea;
+			sourceTree = "<group>";
+		};
+		36BFB4D527D8E729006B606B /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				36BFB4D727D8E739006B606B /* ViewModel */,
+				36BFB4D627D8E732006B606B /* View */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		36BFB4D627D8E732006B606B /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		36BFB4D727D8E739006B606B /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
