@@ -10,57 +10,45 @@ import SwiftUI
 
 struct SideMenuView: View {
     var body: some View {
-        NavigationView{
+        VStack (alignment: .leading){
+            //Profile Header!
             VStack (alignment: .leading){
-                //Profile Header!
-                VStack (alignment: .leading){
-                    Circle()
-                        .frame(width: 54, height: 54)
+                Circle()
+                    .frame(width: 54, height: 54)
+                    .foregroundColor(Color(.systemBlue))
+                //Name + Verified
+                HStack{
+                    
+                    //Name
+                    Text("Ghulam Rasool")
+                        .font(.title2)
+                        .bold()
+            
+                    //Verified
+                    Image(systemName: "checkmark.seal.fill")
                         .foregroundColor(Color(.systemBlue))
-                    //Name + Verified
-                    HStack{
-                        
-                        //Name
-                        Text("Ghulam Rasool")
-                            .font(.title2)
-                            .bold()
-                
-                        //Verified
-                        Image(systemName: "checkmark.seal.fill")
-                            .foregroundColor(Color(.systemBlue))
-                    }
-                    
-                    //Username
-                    Text("@ghulamrasuldev")
-                        .font(.subheadline)
-                        .foregroundColor(.gray)
-                    
-                    UserStatsView()
-                        .padding(.vertical)
                 }
-                .padding(.horizontal)
                 
-                //Options Menu
-                ForEach(SideMenuViewModel.allCases, id: \.rawValue){options in
-                    NavigationLink{
-                        ProfileView()
-                    } label: {
-                        HStack{
-                            Image(systemName: options.imageName)
-                                .font(.headline)
-                                .foregroundColor(.gray)
-                            Text(options.title)
-                                .font(.subheadline)
-                                .foregroundColor(.black)
-                            Spacer()
-                        }
-                        .padding(.horizontal)
-                        .padding(.vertical, 8)
-                    }
-                }
-                //Spacing
-                Spacer()
+                //Username
+                Text("@ghulamrasuldev")
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
+                
+                UserStatsView()
+                    .padding(.vertical)
             }
+            .padding(.horizontal)
+            
+            //Options Menu
+            ForEach(SideMenuViewModel.allCases, id: \.rawValue){options in
+                NavigationLink{
+                    ProfileView()
+                } label: {
+                    SideMenuOptionRowView(option: options)
+                }
+            }
+            //Spacing
+            Spacer()
         }
     }
 }
