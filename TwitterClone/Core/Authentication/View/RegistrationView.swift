@@ -12,26 +12,13 @@ struct RegistrationView: View {
     @State private var password: String = ""
     @State private var username: String = ""
     @State private var fullname: String = ""
+    @EnvironmentObject var viewModel: AuthViewModel
+    @Environment(\.presentationMode) var presentationMode
     var body: some View {
         //Parent Controller
         VStack{
-            //
-            VStack(alignment: .leading){
-                HStack{Spacer()}
-                
-                 Text("Get Started.")
-                    .font(.largeTitle)
-                    .fontWeight(.semibold)
-                
-                Text("Create your Account")
-                    .font(.largeTitle)
-                    .fontWeight(.semibold)
-            }
-            .frame(height: 280)
-            .padding(.leading)
-            .background(Color(.systemBlue))
-            .foregroundColor(.white)
-            .clipShape(RoundedShape(corners: [.bottomRight]))
+            //Auth Header
+            AuthHeader(titleUp: "Get Started.", titleDown: "Create your Account")
             
             VStack (spacing: 40){
                 CustomInputFieldRowView(imageName: "envelope", placeholder: "Email", text: $email)
@@ -44,9 +31,9 @@ struct RegistrationView: View {
             
             
             Button{
-                print("hello...")
+                viewModel.register(email: email, password: password, fullname: fullname, username: username)
             } label: {
-                Text("Sign in")
+                Text("Sign up")
                     .font(.headline)
                     .foregroundColor(.white)
                     .frame(width: 340, height: 50)
@@ -58,23 +45,23 @@ struct RegistrationView: View {
             
             Spacer()
             
-            NavigationLink{
-                LoginUI()
-                    .navigationBarHidden(true)
-            }label: {
-                HStack{
-                    Text("Already have account?")
-                        .font(.footnote)
-                        .foregroundColor(Color(.systemBlue))
-                    
+            HStack{
+                Text("Already have account?")
+                    .font(.footnote)
+                    .foregroundColor(Color(.systemBlue))
+                Button{
+                    presentationMode.wrappedValue.dismiss()
+                } label: {
                     Text("Sign In")
                         .font(.footnote)
                         .fontWeight(.bold)
                         .foregroundColor(Color(.systemBlue))
                 }
+                
             }
             .padding(.vertical, 32)
             .navigationBarHidden(true)
+            
         }
         .ignoresSafeArea()
     }

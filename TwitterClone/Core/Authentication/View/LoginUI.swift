@@ -11,26 +11,13 @@ struct LoginUI: View {
     
     @State private var email: String = ""
     @State private var password: String = ""
+    @EnvironmentObject  var viewModel: AuthViewModel
+    
     var body: some View {
         //Parent Controller
         VStack{
-            //
-            VStack(alignment: .leading){
-                HStack{Spacer()}
-                
-                 Text("Hello.")
-                    .font(.largeTitle)
-                    .fontWeight(.semibold)
-                
-                Text("Welcome Back")
-                    .font(.largeTitle)
-                    .fontWeight(.semibold)
-            }
-            .frame(height: 280)
-            .padding(.leading)
-            .background(Color(.systemBlue))
-            .foregroundColor(.white)
-            .clipShape(RoundedShape(corners: [.bottomRight]))
+            //Header
+            AuthHeader(titleUp: "Hello.", titleDown: "Welcome Back")
             
             VStack (spacing: 40){
                 CustomInputFieldRowView(imageName: "envelope", placeholder: "Email", text: $email)
@@ -57,7 +44,7 @@ struct LoginUI: View {
             
             
             Button{
-                print("hello...")
+                viewModel.login(email: email, password: password)
             } label: {
                 Text("Sign in")
                     .font(.headline)
@@ -71,15 +58,16 @@ struct LoginUI: View {
             
             Spacer()
             
-            NavigationLink{
-                RegistrationView()
-                    .navigationBarHidden(true)
-            }label: {
-                HStack{
-                    Text("Don't have account?")
-                        .font(.footnote)
-                        .foregroundColor(Color(.systemBlue))
-                    
+            
+            HStack{
+                Text("Don't have account?")
+                    .font(.footnote)
+                    .foregroundColor(Color(.systemBlue))
+                
+                NavigationLink{
+                    RegistrationView()
+                        .navigationBarHidden(true)
+                }label: {
                     Text("Sign Up")
                         .font(.footnote)
                         .fontWeight(.bold)

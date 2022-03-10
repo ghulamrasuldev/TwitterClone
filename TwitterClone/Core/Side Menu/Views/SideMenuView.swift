@@ -8,7 +8,11 @@
 
 import SwiftUI
 
+import Firebase
+
 struct SideMenuView: View {
+    
+    @EnvironmentObject var viewModel: AuthViewModel
     var body: some View {
         VStack (alignment: .leading){
             //Profile Header!
@@ -42,16 +46,22 @@ struct SideMenuView: View {
             //Options Menu
             ForEach(SideMenuViewModel.allCases, id: \.rawValue){options in
                 
-     
-                NavigationLink{
-                    if (options == SideMenuViewModel.profile){
+                if options == .profile{
+                    NavigationLink{
                         ProfileView()
-                    }else if (options == SideMenuViewModel.logout){
-                        LoginUI()
-                    }else{
-                        ProfileView()
+                    } label:{
+                        SideMenuOptionRowView(option: options)
                     }
-                } label: {
+                }
+                
+                else if options == .logout{
+                    Button{
+                        viewModel.signOut()
+                    } label: {
+                        SideMenuOptionRowView(option: options)
+                    }
+                }
+                else{
                     SideMenuOptionRowView(option: options)
                 }
             }

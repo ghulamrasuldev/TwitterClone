@@ -11,9 +11,32 @@ struct ContentView: View {
     @State private var showMenu = false
     @State private var value: CGFloat = -300
     @State private var color: Color = Color.clear
-    
+    @EnvironmentObject var viewModel: AuthViewModel
     
     var body: some View {
+        Group {
+            
+            //No User Logged In
+            if viewModel.userSession == nil{
+                LoginUI()
+            }
+            //User Logged In
+            else{
+                mainInterface
+            }
+        }
+    }
+}
+
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
+}
+
+extension ContentView {
+    var mainInterface : some View{
         ZStack(alignment: .topLeading){
             MainTabView()
                 .navigationBarHidden(showMenu)
@@ -64,12 +87,5 @@ struct ContentView: View {
             value = -300
             color = Color.clear
         }
-    }
-}
-
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
     }
 }
