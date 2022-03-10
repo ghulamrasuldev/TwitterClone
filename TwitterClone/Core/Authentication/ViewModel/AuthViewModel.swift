@@ -31,10 +31,6 @@ class AuthViewModel: ObservableObject{
             }
             self.userSession = user
             
-            print("DEBUG: Registered user successfully!")
-            print("DEBUG: \(self.userSession)")
-            
-            
             let data = ["email": email,
                         "fullname": fullname,
                         "username": username.lowercased(),
