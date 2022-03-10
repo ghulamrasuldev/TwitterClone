@@ -17,7 +17,7 @@ class AuthViewModel: ObservableObject{
     
     
     func login(email: String, password: String){
-        
+        Auth.auth()
     }
     
     func register(email:String, password: String, fullname: String, username: String){
