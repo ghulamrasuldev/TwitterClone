@@ -27,7 +27,6 @@ struct ImagePicker: UIViewControllerRepresentable {
     }
 }
 
-
 extension ImagePicker {
     class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate{
         let parent: ImagePicker

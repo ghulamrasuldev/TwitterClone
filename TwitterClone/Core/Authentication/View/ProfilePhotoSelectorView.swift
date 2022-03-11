@@ -36,9 +36,9 @@ struct ProfilePhotoSelectorView: View {
                 ImagePicker(selectedImage: $selectedImage)
             }
             
-            if profileImage != nil{
+            if let selectedImage = selectedImage{
                 Button{
-                    viewModel.userSession = viewModel.session
+                    viewModel.uplaodProfileImage(selectedImage)
                 } label: {
                     Text("Finish")
                         .font(.headline)
@@ -71,7 +71,6 @@ private struct ProfileImageModifier: ViewModifier{
             .scaledToFill()
             .frame(width: 180, height: 180)
             .clipShape(Circle())
-            
     }
 }
 struct ProfilePhotoSelectorView_Previews: PreviewProvider {

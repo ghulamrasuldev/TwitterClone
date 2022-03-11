@@ -44,7 +44,8 @@ class AuthViewModel: ObservableObject{
             let data = ["email": email,
                         "fullname": fullname,
                         "username": username.lowercased(),
-                        "uid": user.uid]
+                        "uid": user.uid,
+                        "imagePath": ""]
             
             
             Firestore.firestore().collection("users")
@@ -60,5 +61,18 @@ class AuthViewModel: ObservableObject{
     func signOut(){
         self.userSession = nil
         try? Auth.auth().signOut()
+    }
+    
+    func uplaodProfileImage(_ image: UIImage){
+        guard let uid = session?.uid else {return}
+        print("UID: " + uid)
+        ImageUploader.uploadImage(image: image) { profileImageURl in
+            Firestore.firestore()
+                .collection("users")
+                .document(uid)
+                .updateData(["imagePath": profileImageURl]){_ in
+                    self.userSession = self.session
+            }
+        }
     }
 }
