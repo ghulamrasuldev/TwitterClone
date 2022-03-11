@@ -9,6 +9,7 @@ import SwiftUI
 import Firebase
 
 class AuthViewModel: ObservableObject{
+    var session: FirebaseAuth.User?
     @Published var userSession: FirebaseAuth.User?
     @Published var didUserAuthenticate = false
     
@@ -23,7 +24,6 @@ class AuthViewModel: ObservableObject{
                 print("Failed to login. \n Reason: \(error.localizedDescription)")
             }
             guard let user = result?.user else {return}
-            
             self.userSession = user
             
             print("Logged in successfully!")
@@ -39,7 +39,7 @@ class AuthViewModel: ObservableObject{
             guard let user = result?.user else {
                 return
             }
-            self.userSession = user
+            self.session = user
             
             let data = ["email": email,
                         "fullname": fullname,
