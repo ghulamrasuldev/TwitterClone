@@ -10,6 +10,7 @@ import SwiftUI
 struct CustomInputFieldRowView: View {
     let imageName: String
     let placeholder: String
+    var isSecureField: Bool? = false
     @Binding var text: String
     
     var body: some View {
@@ -21,7 +22,13 @@ struct CustomInputFieldRowView: View {
                     .frame(width: 15, height: 15)
                     .foregroundColor(Color(.darkGray))
                 
-                TextField(placeholder, text: $text)
+                
+                if isSecureField ?? false{
+                    SecureField(placeholder, text: $text)
+                }
+                else{
+                    TextField(placeholder, text: $text)
+                }
             }
             Divider()
                 .foregroundColor(Color(.darkGray))

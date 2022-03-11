@@ -15,6 +15,10 @@ struct RegistrationView: View {
     @EnvironmentObject var viewModel: AuthViewModel
     @Environment(\.presentationMode) var presentationMode
     var body: some View {
+        
+        
+        NavigationLink(destination: ProfilePhotoSelectorView()
+                       , isActive: $viewModel.didUserAuthenticate, label: {})
         //Parent Controller
         VStack{
             //Auth Header
@@ -24,7 +28,7 @@ struct RegistrationView: View {
                 CustomInputFieldRowView(imageName: "envelope", placeholder: "Email", text: $email)
                 CustomInputFieldRowView(imageName: "person", placeholder: "Username", text: $username)
                 CustomInputFieldRowView(imageName: "person", placeholder: "Full name", text: $fullname)
-                CustomInputFieldRowView(imageName: "lock", placeholder: "Password", text: $password)
+                CustomInputFieldRowView(imageName: "lock", placeholder: "Password",isSecureField: true, text: $password)
             }
             .padding(.horizontal, 32)
             .padding(.top, 44)

@@ -20,8 +20,14 @@ struct LoginUI: View {
             AuthHeader(titleUp: "Hello.", titleDown: "Welcome Back")
             
             VStack (spacing: 40){
-                CustomInputFieldRowView(imageName: "envelope", placeholder: "Email", text: $email)
-                CustomInputFieldRowView(imageName: "lock", placeholder: "Password", text: $password)
+                CustomInputFieldRowView(imageName: "envelope",
+                                        placeholder: "Email",
+                                        text: $email)
+                
+                CustomInputFieldRowView(imageName: "lock",
+                                        placeholder: "Password",
+                                        isSecureField: true,
+                                        text: $password)
             }
             .padding(.horizontal, 32)
             .padding(.top, 44)

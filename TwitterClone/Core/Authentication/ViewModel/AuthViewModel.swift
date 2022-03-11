@@ -10,6 +10,7 @@ import Firebase
 
 class AuthViewModel: ObservableObject{
     @Published var userSession: FirebaseAuth.User?
+    @Published var didUserAuthenticate = false
     
     init (){
         self.userSession = Auth.auth().currentUser
@@ -49,6 +50,7 @@ class AuthViewModel: ObservableObject{
             Firestore.firestore().collection("users")
                 .document(user.uid)
                 .setData(data){ _ in
+                    self.didUserAuthenticate = true
                     print("Uploaded Data!")
                 }
         }
