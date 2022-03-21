@@ -7,66 +7,73 @@
 
 
 import SwiftUI
-
 import Firebase
+import Kingfisher
 
 struct SideMenuView: View {
     
     @EnvironmentObject var viewModel: AuthViewModel
     var body: some View {
-        VStack (alignment: .leading){
-            //Profile Header!
+        if let user = viewModel.currentUser{
             VStack (alignment: .leading){
-                Circle()
-                    .frame(width: 54, height: 54)
-                    .foregroundColor(Color(.systemBlue))
-                //Name + Verified
-                HStack{
-                    
-                    //Name
-                    Text("Ghulam Rasool")
-                        .font(.title2)
-                        .bold()
-            
-                    //Verified
-                    Image(systemName: "checkmark.seal.fill")
+                //Profile Header!
+                VStack (alignment: .leading){
+                    KFImage(URL(string: viewModel.currentUser?.imagePath ?? ""))
+                        .resizable()
+                        .scaledToFill()
+                        .clipShape(Circle())
+                        .frame(width: 54, height: 54)
                         .foregroundColor(Color(.systemBlue))
+                    
+                    //Name + Verified
+                    HStack{
+                        
+                        //Name
+                        Text(user.fullname)
+                            .font(.title2)
+                            .bold()
+                
+                        //Verified
+                        Image(systemName: "checkmark.seal.fill")
+                            .foregroundColor(Color(.systemBlue))
+                    }
+                    
+                    //Username
+                    Text("@\(user.username)")
+                        .font(.subheadline)
+                        .foregroundColor(.gray)
+                    
+                    UserStatsView()
+                        .padding(.vertical)
                 }
+                .padding(.horizontal)
                 
-                //Username
-                Text("@ghulamrasuldev")
-                    .font(.subheadline)
-                    .foregroundColor(.gray)
-                
-                UserStatsView()
-                    .padding(.vertical)
-            }
-            .padding(.horizontal)
-            
-            //Options Menu
-            ForEach(SideMenuViewModel.allCases, id: \.rawValue){options in
-                
-                if options == .profile{
-                    NavigationLink{
-                        ProfileView()
-                    } label:{
+                //Options Menu
+                ForEach(SideMenuViewModel.allCases, id: \.rawValue){options in
+                    
+                    if options == .profile{
+                        NavigationLink{
+                            ProfileView()
+                        } label:{
+                            SideMenuOptionRowView(option: options)
+                        }
+                    }
+                    
+                    else if options == .logout{
+                        Button{
+                            viewModel.signOut()
+                        } label: {
+                            SideMenuOptionRowView(option: options)
+                        }
+                    }
+                    else{
                         SideMenuOptionRowView(option: options)
                     }
                 }
                 
-                else if options == .logout{
-                    Button{
-                        viewModel.signOut()
-                    } label: {
-                        SideMenuOptionRowView(option: options)
-                    }
-                }
-                else{
-                    SideMenuOptionRowView(option: options)
-                }
+                //Spacing
+                Spacer()
             }
-            //Spacing
-            Spacer()
         }
     }
 }
